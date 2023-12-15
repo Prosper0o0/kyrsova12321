@@ -1,0 +1,18 @@
+body {
+    text-align: center;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+table td {
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+}
+
+#main-title {
+    text-align: center;
+    font-size: 65px;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+

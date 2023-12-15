@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список авто</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-d6xy1KX2HprwZsL41mJehLOQkOSBGUOeHN4idb+q5POFwFDCVp7ROm0tk57PzZBx7i5Qek6KRym9QVD7a66pFQ=="
+        crossorigin="anonymous"
+    />
+</head>
+<body>
+    <h1 id="main-title" style="text-align: center; padding: 70px;">Автомобілі</h1>
+
+    <div style="padding: 28px;">
+        <div style="display: flex; align-items: center; margin-bottom: 5px;">
+            <form method="get" action="" style="margin-right: 10px;">
+                <input type="text" name="search_query" placeholder="Пошук авто..." value="{{ request.GET.search_query }}">
+                <button type="submit">Пошук</button>
+            </form>
+
+            <a href="http://127.0.0.1:8000/add" class="btn btn-secondary">Добавити елемент</a>
+
+    </div>
+
+        <table class="table table-striped table-bordered table-hover table-sm align-top">
+            <thead class="table-dark">
+                <tr>
+                    <!-- Заголовок для ID -->
+                    <th>
+                        <a href="?sort=id{% if sort == 'id' and direction == 'asc' %}&direction=desc{% endif %}&search_query={{ request.GET.search_query }}">
+                            <div style="text-align: center;">ID</div>
+                            {% if sort == 'id' %}
+                            <i class="fas fa-sort-{% if direction == 'asc' %}down{% else %}up{% endif %}"></i>
+                            {% else %}
+                                <i class="fas fa-sort"></i>
+                            {% endif %}
+                        </a>
+                    </th>
+                    <!-- Заголовок для Марки -->
+                    <th>
+                        <a href="?sort=mark_name{% if sort == 'mark_name' and direction == 'asc' %}&direction=desc{% endif %}&search_query={{ request.GET.search_query }}">
+                            <div style="text-align: center;">Марка</div>
+                            {% if sort == 'mark_name' %}
+                            <i class="fas fa-sort-{% if direction == 'asc' %}down{% else %}up{% endif %}"></i>
+
+                            {% else %}
+                                <i class="fas fa-sort"></i>
+                            {% endif %}
+                        </a>
+                    </th>
+                    <!-- Заголовок для Моделі -->
+                    <th>
+                        <a href="?sort=model_name{% if sort == 'model_name' and direction == 'asc' %}&direction=desc{% endif %}&search_query={{ request.GET.search_query }}">
+                            <div style="text-align: center;">Модель</div>
+                            {% if sort == 'model_name' %}
+                            <i class="fas fa-sort-{% if direction == 'asc' %}down{% else %}up{% endif %}"></i>
+
+                            {% else %}
+                                <i class="fas fa-sort"></i>
+                            {% endif %}
+                        </a>
+                    </th>
+                    <!-- Заголовок для Покоління -->
+                    <th>
+                        <a href="?sort=generation_name{% if sort == 'generation_name' and direction == 'asc' %}&direction=desc{% endif %}&search_query={{ request.GET.search_query }}">
+                            <div style="text-align: center;">Покоління</div>
+                            {% if sort == 'generation_name' %}
+                            <i class="fas fa-sort-{% if direction == 'asc' %}down{% else %}up{% endif %}"></i>
+
+                            {% else %}
+                                <i class="fas fa-sort"></i>
+                            {% endif %}
+                        </a>
+                    </th>
+                    <!-- Заголовок для Конфігурації -->
+                    <th>
+                        <a href="?sort=equipment_name{% if sort == 'equipment_name' and direction == 'asc' %}&direction=desc{% endif %}&search_query={{ request.GET.search_query }}">
+                            <div style="text-align: center;">Конфігурація</div>
+                            {% if sort == 'equipment_name' %}
+                            <i class="fas fa-sort-{% if direction == 'asc' %}down{% else %}up{% endif %}"></i>
+
+                            {% else %}
+                                <i class="fas fa-sort"></i>
+                            {% endif %}
+                        </a>
+                    </th>
+                    <!-- Заголовок для Року -->
+                    <th>
+                        <a href="?sort=year{% if sort == 'year' and direction == 'asc' %}&direction=desc{% endif %}&search_query={{ request.GET.search_query }}">
+                            <div style="text-align: center;">Рік</div>
+                            {% if sort == 'year' %}
+                            <i class="fas fa-sort-{% if direction == 'asc' %}down{% else %}up{% endif %}"></i>
+
+                            {% else %}
+                                <i class="fas fa-sort"></i>
+                            {% endif %}
+                        </a>
+                    </th>
+                    <!-- Заголовок для Ціни -->
+                    <th>
+                        <a href="?sort=price{% if sort == 'price' and direction == 'asc' %}&direction=desc{% endif %}&search_query={{ request.GET.search_query }}">
+                            <div style="text-align: center;">Ціна, $</div>
+                            {% if sort == 'price' %}
+                            <i class="fas fa-sort-{% if direction == 'asc' %}down{% else %}up{% endif %}"></i>
+
+                            {% else %}
+                                <i class="fas fa-sort"></i>
+                            {% endif %}
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for car in cars %}
+                <tr>
+                    <td>{{ car.id }}</td>
+                    <td>{{ car.mark_name }}</td>
+                    <td>{{ car.model_name }}</td>
+                    <td>{{ car.generation_name }}</td>
+                    <td>{{ car.equipment_name }}</td>
+                    <td>{{ car.year }}</td>
+                    <td>{{ car.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

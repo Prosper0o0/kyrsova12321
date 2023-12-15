@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Додати Автомобіль</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    <!-- Тут можуть бути ваші стилі або посилання на зовнішні CSS-файли -->
+    <style>
+        body {
+            font-family: 'Comfortaa', cursive;
+        }
+        .first-button {
+            text-decoration: none;
+            background-color: #4CAF50; /* Зелений колір */
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: none;
+            font-size: 16px;
+            width: 120px; /* Фіксована ширина */
+            height: 40px; /* Фіксована висота */
+        }
+        .button-style {
+            text-decoration: none;
+            background-color: #4CAF50; /* Зелений колір */
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: none;
+            font-size: 16px;
+            width: 100px; /* Фіксована ширина */
+            height: 20px; /* Фіксована висота */
+        }
+    </style>
+</head>
+<body>
+    <h1>Додати Автомобіль</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="first-button">Save</button>
+        <!-- Кнопка Назад -->
+        <a href="http://127.0.0.1:8000" class="button-style">Back!</a>
+    </form>
+</body>
+</html>
